@@ -1,0 +1,39 @@
+{
+  "name": "markdown-blog",
+  "version": "1.0.0",
+  "description": "Yet another markdown blog",
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express",
+    "blog",
+    "markdown",
+    "tutorial"
+  ],
+  "main": "main.js",
+  "scripts": {
+    "start:dev": "nodemon main.js",
+    "start": "node main.js"
+  },
+  "author": "Artem Labazin <xxlabaza@gmail.com>",
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "dependencies": {
+    "dompurify": "^2.0.8",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "jsdom": "^16.2.1",
+    "marked": "^0.8.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.9.5",
+    "slugify": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
