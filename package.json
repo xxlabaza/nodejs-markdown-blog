@@ -24,7 +24,13 @@
   "scripts": {
     "start:dev": "nodemon main.js",
     "start": "node main.js",
-    "verify": "eslint --ignore-path .gitignore ."
+    "verify": "eslint --ignore-path .gitignore .",
+    "pretest": "npm run verify && npm run db:test:up",
+    "test": "jest --detectOpenHandles",
+    "posttest": "npm run db:test:down",
+
+    "db:test:up": "docker-compose -f docker-compose.test.yml up --detach",
+    "db:test:down": "docker-compose -f docker-compose.test.yml down"
   },
   "dependencies": {
     "dompurify": "^2.0.8",
@@ -39,9 +45,17 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "nodemon": "^2.0.2"
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
   },
   "engines": {
     "node": ">=12.13.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

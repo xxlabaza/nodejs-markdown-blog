@@ -1,0 +1,12 @@
+
+version: "2.1"
+
+services:
+
+  database:
+    container_name: "mongodb"
+    image: "mongo:4.2.3"
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"

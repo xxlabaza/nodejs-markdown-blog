@@ -15,34 +15,39 @@
  * limitations under the License.
  */
 
-const log = require("./src/main/Logger").get();
+const log = require("./src/main/js/logger").get();
+const db = require("./src/main/js/database");
+const app = require("./src/main/js/app");
 
-const databaseHost = process.env.DATABASE_HOST || "127.0.0.1";
-require("mongoose").connect(`mongodb://${databaseHost}/markdwon_blog-db`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-});
+async function connectToDatabase () {
+  const host = process.env.DATABASE_HOST || "127.0.0.1";
+  const uri = `mongodb://${host}/markdwon_blog-db`;
 
-const express = require("express");
-const app = express();
+  log.info("connecting to a database '%s' ...", uri);
+  try {
+    await db.connect(uri);
+  } catch (ex) {
+    const message = `unable to connect to the database, the reason is - ${ex.message}`;
+    throw new Error(message);
+  }
+  log.info("the connection was established");
+}
 
-app.set("views", "./src/resources/views");
-app.set("view engine", "ejs");
+function startServer () {
+  log.info("starting a web server....");
 
-app.use(express.urlencoded({ extended: false }));
+  const serverPort = process.env.SERVER_PORT || 5000;
+  return new Promise((resolve, reject) => {
+    app.listen(serverPort, function () {
+      log.info("the web server was started on port %d", serverPort);
+      resolve();
+    }).on("error", function (error) {
+      const message = `unable to start the web server, the reason is - ${error}`;
+      reject(new Error(message));
+    });
+  });
+}
 
-const methodOverride = require("method-override");
-app.use(methodOverride("_method"));
-
-const healthRouter = require("./src/main/HealthRouter");
-const rootRouter = require("./src/main/RootRouter");
-app.use("/", healthRouter, rootRouter);
-
-const articleRouter = require("./src/main/ArticleRouter");
-app.use("/articles", articleRouter);
-
-const serverPort = process.env.SERVER_PORT || 5000;
-app.listen(serverPort, function () {
-  log.info("the server started on port %d", serverPort);
-});
+connectToDatabase()
+  .then(startServer)
+  .catch(ex => log.error(ex.message));

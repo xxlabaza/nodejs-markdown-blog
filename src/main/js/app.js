@@ -16,41 +16,23 @@
  */
 
 const express = require("express");
-const mongoose = require("mongoose");
-const router = express.Router();
+const app = express();
 
+app.set("views", "./src/main/resources/views");
+app.set("view engine", "ejs");
 
-const statusUp = JSON.stringify({
-  status: "UP",
-  database: {
-    status: "UP",
-    connected: true
-  }
+app.use(express.urlencoded({ extended: false }));
+
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+
+const routers = {
+  "/": require("./root/router"),
+  "/articles": require("./article/router"),
+  "/health": require("./health/router")
+};
+Object.entries(routers).forEach(([path, router]) => {
+  app.use(path, router);
 });
 
-const statusDown = JSON.stringify({
-  status: "DOWN",
-  database: {
-    status: "DOWN",
-    connected: false
-  }
-});
-
-router.get("/health", (request, response) => {
-  let status;
-  let body;
-  if (mongoose.connection.readyState === 1) {
-    status = 200;
-    body = statusUp;
-  } else {
-    status = 500;
-    body = statusDown;
-  }
-
-  response
-    .status(status)
-    .type("application/json")
-    .send(body);
-});
-
-module.exports = router;
+module.exports = app;

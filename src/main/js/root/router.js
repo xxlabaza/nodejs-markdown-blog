@@ -17,10 +17,10 @@
 
 const express = require("express");
 const router = express.Router();
-const Article = require("./ArticleModel");
+const Article = require("../article/model");
 
 
-router.get("/", async (request, response) => {
+router.get("/", async (_, response) => {
   const articles = await Article.find().sort({ createdAt: "desc" });
   response.render("index", { articles: articles });
 });

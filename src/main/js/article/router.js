@@ -17,10 +17,10 @@
 
 const express = require("express");
 const router = express.Router();
-const Article = require("./ArticleModel");
+const Article = require("./model");
 
 
-router.get("/create", (request, response) => {
+router.get("/create", (_, response) => {
   response.render("articles/create", { article: new Article() });
 });
 
