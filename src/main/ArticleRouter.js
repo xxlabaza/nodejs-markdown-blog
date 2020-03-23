@@ -70,7 +70,7 @@ function saveAndRedirect (path) {
     } catch (ex) {
       response.render(`articles/create/${path}`, { article: article });
     }
-  }
-};
+  };
+}
 
 module.exports = router;

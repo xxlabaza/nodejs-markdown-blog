@@ -44,13 +44,13 @@ router.get("/health", (request, response) => {
     body = statusUp;
   } else {
     status = 500;
-    body = statusDown
+    body = statusDown;
   }
 
   response
-      .status(status)
-      .type('application/json')
-      .send(body);
+    .status(status)
+    .type("application/json")
+    .send(body);
 });
 
 module.exports = router;

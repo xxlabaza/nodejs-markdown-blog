@@ -25,7 +25,7 @@ require("mongoose").connect(`mongodb://${databaseHost}/markdwon_blog-db`, {
 const express = require("express");
 const app = express();
 
-app.set('views','./src/resources/views');
+app.set("views", "./src/resources/views");
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
@@ -42,5 +42,5 @@ app.use("/articles", articleRouter);
 
 const serverPort = process.env.SERVER_PORT || 5000;
 app.listen(serverPort, function () {
-  console.log(`the server started on port ${serverPort}`)
+  console.log(`the server started on port ${serverPort}`);
 });
