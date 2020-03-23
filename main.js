@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+const log = require("./src/main/Logger").get();
+
 const databaseHost = process.env.DATABASE_HOST || "127.0.0.1";
 require("mongoose").connect(`mongodb://${databaseHost}/markdwon_blog-db`, {
   useNewUrlParser: true,
@@ -42,5 +44,5 @@ app.use("/articles", articleRouter);
 
 const serverPort = process.env.SERVER_PORT || 5000;
 app.listen(serverPort, function () {
-  console.log(`the server started on port ${serverPort}`);
+  log.info("the server started on port %d", serverPort);
 });
