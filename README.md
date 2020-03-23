@@ -3,6 +3,15 @@
 
 This is a yet another implementation of a markdown blog engine based on **Web Dev Simplified** [tutorial](https://www.youtube.com/watch?v=1NrHkjlWVhM) and customised (try to find my own NodeJS style...) by me.
 
+The project's fetures:
+
+* its frontend made with `Bootstrap` and `EJS` templates;
+* stores data in `MongoDB` via `mongoose` library;
+* runs `ESLint` before the tests;
+* it has the tests with power of `Jest` and `supertest` (for API checks);
+* uses `nodemon` for automaticaly restarting app during the development;
+* it uses `Docker` and `docker-compose` tools for distribution, local launch and testing.
+
 ## Launch
 
 ### Docker compose
