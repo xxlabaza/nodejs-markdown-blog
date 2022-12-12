@@ -35,7 +35,7 @@
   "dependencies": {
     "dompurify": "^2.0.8",
     "ejs": "^3.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jsdom": "^16.2.1",
     "log4js": "^6.1.2",
     "marked": "^0.8.1",
